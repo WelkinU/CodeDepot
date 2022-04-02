@@ -15,7 +15,7 @@ from pprint import pprint
 import operator #for basic Python functions. Docs: https://docs.python.org/3/library/operator.html#module-operator
 
 
-def find_combinations(starting_tuple = (3,3,3), output_lower_bound = 0, output_upper_bound = 12, max_iter = 500):
+def find_combinations(starting_tuple = (3,3,3), output_lower_bound = 0, output_upper_bound = 10, max_iter = 1000):
 	''' Uses a breadth first search to search the space of possible tuple mutations.
 	Outputs the integer solutions and the steps to achieve that solution.
 
@@ -24,7 +24,7 @@ def find_combinations(starting_tuple = (3,3,3), output_lower_bound = 0, output_u
 	output_lower_bound {int} -- The lower limit of integer solutions to print() out.
 	output_upper_bound {int} -- The up limit of integer solutions to print() out. Used to avoid excessive solution printing
 									of integer output like 720 = 6!, that people may not care about
-	max_iter {int} -- The maximum number of BFS iterations (to cap runtime in case of large search spaces)
+	max_iter {int} -- The maximum number of BFS iterations (to cap runtime in case of very large search spaces)
 
 	'''
 	assert output_lower_bound <= output_upper_bound
@@ -142,6 +142,7 @@ def validate_tuple(t, min_value = 0, max_value = 100):
 
 	return True
 
+
 def special_divide(x,y):
 	if y == 0:
 		return None #basically tell validate_tuple() it's invalid
@@ -155,5 +156,23 @@ def special_divide(x,y):
 
 
 if __name__ == '__main__':
-	find_combinations()
+	import argparse
+
+	def input_tuple(s):
+		'''Special validator for --tuple argument'''
+		try:
+			ret = tuple([int(x) for x in s.split(',')])
+			return ret
+		except:
+			raise argparse.ArgumentTypeError("--tuple argument must be in form --tuple x1,x2,x3 ...")
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--tuple', help="Starting tuple, can be any length. Example Usage: --tuple 3,3,3", type=input_tuple, default = '3,3,3')
+	parser.add_argument('--lower', type=int, default=0, help='Lower bound for integers solutions to detect.')
+	parser.add_argument('--upper', type=int, default=10, help='Upper bound for integers solutions to detect.')
+	parser.add_argument('--maxiter', type=int, default=1000, help='Maximum number of tuples to queue in the breadth-first-search. Intended to cap runtime in case of very large search spaces')
+	args = parser.parse_args()
+
+	find_combinations(starting_tuple = args.tuple, output_lower_bound = args.lower, output_upper_bound = args.upper)
+
 	
