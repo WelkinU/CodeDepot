@@ -1,6 +1,6 @@
-# Various Coding Challenges
+# Code Depot - Coding Challenges, Random Code Modules, etc.
 
-This repository's goal is to be a way to share/host some small independent scripts that don't need a whole repo.
+This repository's goal is to be a way to share/host some small standalone scripts that don't need a whole repository.
 
 ## Generalized Threes Challenge Solver - [GeneralizedThreesChallengeSolver.py](GeneralizedThreesChallengeSolver.py)
 
