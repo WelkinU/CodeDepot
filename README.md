@@ -2,6 +2,12 @@
 
 This repository's goal is to be a way to share/host some small standalone scripts that don't need a whole repository.
 
+## American / European Options Pricing with Binomial Model - [OptionsPricingBinomialModel.py](OptionsPricingBinomialModel.py)
+
+Pricing American and European put and call options using a binomial model (extensible to trinomial). Based off math described here: https://youtu.be/L8hMr07F4k8
+
+![AmericanOptionsPricing](images/AmericanOptionsBinomial.png)
+
 ## Generalized Threes Challenge Solver - [GeneralizedThreesChallengeSolver.py](GeneralizedThreesChallengeSolver.py)
 
 
@@ -15,6 +21,7 @@ Notes
 
 - The input tuple can be any length, and have any integers on it. 
 - To add your own functions, just add them to the list join_functions or inplace_modifier_functions and the code will incorperate those into the search.
+- Breadth first search nodes are filtered if they are obviously invalid
 
 ## Disjoint Set - ([DisjointSet.py](DisjointSet.py))
 
