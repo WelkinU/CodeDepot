@@ -9,8 +9,7 @@ get_binomial_replicating_value_cash() function)
 
 '''
 import queue
-from numpy import matrix, linalg
-import numpy as np
+from numpy import linalg
 
 class Node:
     ''' A class that represents the state of a particular node in the tree.
