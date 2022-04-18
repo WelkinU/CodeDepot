@@ -29,7 +29,7 @@ def binary_search(func, target_output, lower, upper, tolerance = 0.0001, max_ite
 	guess = (lower + upper) / 2
 	for i in range(max_iter):
 		estimate = func(guess)
-		print(f'Iter {i} Guess {guess} F(guess) = {estimate}, L = {lower}, U = {upper}')
+		#print(f'Iter {i} Guess {guess} F(guess) = {estimate}, L = {lower}, U = {upper}')
 		if abs(target_output - estimate) < tolerance:
 			return guess
 
@@ -48,14 +48,15 @@ if __name__ == '__main__':
 	#------------ EXAMPLES ZONE ------------
 	########################################
 
-	#converges to 5
+	#Solves "x^2 = 25" converges to 5
+	
 	est = binary_search(func = lambda x: x**2, target_output = 25, lower = 0, upper = 25)
 	print(f'Estimate: {est}')
 	print('\n-----------------------------------------------------------------------------\n')
 
-	#converges to -2020/305 ~= -6.62295
-	f = lambda x: x * math.floor(x * math.floor(x * math.floor(x)))
-	est = binary_search(func = f, target_output = 2020, lower = - 8, upper = -6)
+	#Solves "2^(x/2) + x = 0" converges -0.7666015625
+	f = lambda x: 2 ** (x/2) + x
+	est = binary_search(func = f, target_output = 0, lower = - 10, upper = 10)
 
 	print(f'Estimate: {est}')
 
