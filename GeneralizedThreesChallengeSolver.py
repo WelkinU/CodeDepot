@@ -19,7 +19,7 @@ def find_combinations(starting_tuple = (3,3,3), output_lower_bound = 0, output_u
 	''' Uses a breadth first search to search the space of possible tuple mutations.
 	Outputs the integer solutions and the steps to achieve that solution.
 
-	Arugments:
+	Arguments:
 	starting_tuple {tuple} -- Tuple representing the initial problem state. Tuple can be any length > 0 (not just length 3).
 	output_lower_bound {int} -- The lower limit of integer solutions to print() out.
 	output_upper_bound {int} -- The up limit of integer solutions to print() out. Used to avoid excessive solution printing

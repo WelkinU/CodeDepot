@@ -1,7 +1,7 @@
 ''' American and European Options Pricing based off binomial option model.
 Uses the math described here https://youtu.be/L8hMr07F4k8?t=300
 
-Toggle the early_excercise variable to switch between American (True) and
+Toggle the early_exercise variable to switch between American (True) and
 European (False) options.
 
 Intended to be extensible to trinomial model as well (only have to update
@@ -47,18 +47,35 @@ class OptionPricingTree:
     ''' From initial conditions, builds a tree of Node objects representing the Binomial option price model.
 
     Also calculates option intrinsic value and value in continuing down the tree (comparison used for early
-    option excercise if selected)
+    option exercise if selected)
     '''
 
     def __init__(self,  initial_price: float = 100, 
                         strike: float = 100, 
                         option_type: str = 'put', 
-                        early_excercise: bool = True, 
+                        early_exercise: bool = True, 
                         time_periods: int = 3,
                         next_step_change: list = [1.07, 1/1.07], 
                         next_step_prob: list = [0.5, 0.5],
                         risk_free_rate_per_period: float = 1.01,
                         debug: bool = True):
+        '''
+        Arguments:
+        initial_price {float} -- Initial price of the stock
+        strike {float} -- The option strike price
+        option_type {str} -- The type of option. Either "call" or "put"
+        early_exercise {bool} -- American option (True) or European option (False)
+        time_periods {int} -- The number of time steps (aka. the number of tree layers after the root)
+        next_step_change {list} -- List of floats describing multipliers to get to the next state.
+                                    Each non-terminal node in the tree has a child with an element in this list
+                                    multiplied by the parent's current price
+        next_step_prob {list} -- This doesn't actually matter to the model... But it's the probability of
+                                choosing a branch described in the next_step_change variable. Must be same
+                                length.
+        risk_free_rate_per_period {float} -- The risk free rate of return per time period. Generally will
+                                            be a float >= 1
+        debug {bool} -- Show debug output, like when early exercise is happening
+        '''
 
         #do some error checking
         assert option_type in ['call','put'], 'option_type must be "call" or "put"'
@@ -72,7 +89,7 @@ class OptionPricingTree:
         self.initial_price = initial_price
         self.strike = strike
         self.option_type = option_type
-        self.early_excercise = early_excercise
+        self.early_exercise = early_exercise
         self.time_periods = time_periods
         self.next_step_change = next_step_change
         self.next_step_prob = next_step_prob
@@ -120,7 +137,7 @@ class OptionPricingTree:
                         #Two parent nodes can point to same child in lattice structure
                         #for this to happen, the child will have same current_value and time_step
                         #in this case, we just point parent to already existing node 
-                        #(don't need to update other parent in this excercise)
+                        #(don't need to update other parent in this exercise)
                         self.all_nodes[current_node_idx].children = self.all_nodes[current_node_idx].children + [self.all_nodes.index(node_to_add)]
 
 
@@ -137,11 +154,11 @@ class OptionPricingTree:
                 value_of_continuing = self.get_binomial_replicating_value_cash(self.all_nodes[idx])
                 value_of_continuing = round(value_of_continuing, 3) #rounding for display purposes
                 
-                if self.early_excercise:
+                if self.early_exercise:
                     #handle early stopping in American options
                     if self.all_nodes[idx].option_value > value_of_continuing:
                         if self.debug:
-                            print(f'Early excercise on node {idx}. Option value ({self.all_nodes[idx].option_value}) > Value of Continuing ({value_of_continuing})')
+                            print(f'Early exercise on node {idx}. Option value ({self.all_nodes[idx].option_value}) > Value of Continuing ({value_of_continuing})')
 
                     self.all_nodes[idx].option_value = max(self.all_nodes[idx].option_value, value_of_continuing)
 
