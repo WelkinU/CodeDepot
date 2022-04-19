@@ -1,6 +1,6 @@
-# Code Depot - Coding Challenges, Random Code Modules, etc.
+# Code Depot - Various Independent Standalone Scripts
 
-This repository's goal is to be a way to share/host some small standalone scripts that don't need a whole repository.
+This repository's goal is to be a way to share/host some small standalone scripts that don't need a whole repository - random code modules, code challenges, etc.
 
 ## American / European Options Pricing with Binomial Model - [OptionsPricingBinomialModel.py](OptionsPricingBinomialModel.py)
 
