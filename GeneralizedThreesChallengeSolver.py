@@ -77,7 +77,7 @@ def find_combinations(starting_tuple = (3,3,3), output_lower_bound = 0, output_u
                     except ZeroDivisionError:
                         pass  #catch zero divides, and zero mod() divides
                     except Exception as e:
-                        print(f'You have an error in your join_function: {e}')
+                        print(f'[ERROR] -- Error in join_function {func}: {e}')
 
         #create all mutations of the tuple to mutate, this time using only inplace modifier functions
         for func in inplace_modifier_functions:
